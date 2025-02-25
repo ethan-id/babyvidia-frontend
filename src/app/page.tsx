@@ -1,6 +1,5 @@
 import React, {Suspense} from 'react';
 
-// Your fake fetch function remains unchanged
 const fakeFetchExample = async () => {
     return new Promise((resolve) => {
         setTimeout(resolve, 2500, 'test');

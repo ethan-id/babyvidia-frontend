@@ -1,4 +1,4 @@
-# BabyNvidia Frotntend
+# BabyNvidia Frontend
 
 First, run the development server:
 

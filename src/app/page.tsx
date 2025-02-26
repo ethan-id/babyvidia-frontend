@@ -6,7 +6,7 @@ const fakeFetchExample = async () => {
     });
 };
 
-// Async component that fetches and renders data
+// Async server component that fetches and renders data
 async function HomeContent() {
     const data = await fakeFetchExample();
 

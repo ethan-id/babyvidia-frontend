@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React, {Suspense} from 'react';
 
 const fakeFetchExample = async () => {
@@ -16,8 +17,11 @@ async function HomeContent() {
 // Main page component wrapped in Suspense
 export default function Home() {
     return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <HomeContent />
-        </Suspense>
+        <div>
+            <Link href={'/levels'}>Click me!</Link>
+            <Suspense fallback={<div>Loading...</div>}>
+                <HomeContent />
+            </Suspense>
+        </div>
     );
 }

@@ -6,7 +6,7 @@ export default async function RoomPage({params}: {params: Promise<{room: string}
             <p>You are on route</p>
             <p className='font-light italic'>/levels/{room},</p>
             <p>try modifying the URL</p>
-            <p className={'font-extralight text-sm italic'}>(After "/levels/")</p>
+            <p className={'font-extralight text-sm italic'}>(After &ldquo;/levels/&ldquo;)</p>
         </div>
     );
 }

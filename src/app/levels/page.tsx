@@ -1,7 +1,10 @@
+import Link from "next/link";
+
 const ExampleRow = () => (
     <div className='flex border p-2 gap-12 items-center border-slate-200 min-h-[50px] rounded-xl'>
         <p className='font-bold'>Room 130a:</p>
         <p>2/4 seats available</p>
+        <Link href={'/levels/change-me'}>Click me to see route params example</Link>
     </div>
 );
 

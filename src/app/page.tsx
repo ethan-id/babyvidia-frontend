@@ -1,27 +1,20 @@
-import Link from 'next/link';
-import React, {Suspense} from 'react';
+"use client";
 
-const fakeFetchExample = async () => {
-    return new Promise((resolve) => {
-        setTimeout(resolve, 2500, 'test');
-    });
-};
+import { useEffect, useState } from "react";
 
-// Async server component that fetches and renders data
-async function HomeContent() {
-    const data = await fakeFetchExample();
-
-    return <div className='m-24 text-center text-3xl'>{JSON.stringify(data)}</div>;
-}
-
-// Main page component wrapped in Suspense
 export default function Home() {
-    return (
-        <div>
-            <Link href={'/levels'}>Click me!</Link>
-            <Suspense fallback={<div>Loading...</div>}>
-                <HomeContent />
-            </Suspense>
-        </div>
-    );
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetch("http://jetsonnano-02.ece.iastate.edu:8080/hello")
+      .then((res) => res.text())
+      .then((data) => setMessage(data))
+      .catch((err) => console.error(err));
+  }, []);
+
+  return (
+    <main className="flex min-h-screen items-center justify-center">
+      <h1 className="text-2xl">{message || "Loading..."}</h1>
+    </main>
+  );
 }

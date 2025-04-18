@@ -1,22 +1,29 @@
-'use client';
-
 import Link from 'next/link';
-import {useEffect, useState} from 'react';
 
-export default function Home() {
-    const [message, setMessage] = useState('');
+const fetchMessage = async () => {
+    const url = new URL('http://jetsonnano-02.ece.iastate.edu:8080/hello');
 
-    useEffect(() => {
-        fetch('http://jetsonnano-02.ece.iastate.edu:8080/hello')
-            .then((res) => res.text())
-            .then((data) => setMessage(data))
-            .catch((err) => console.error(err));
-    }, []);
+    const res = await fetch(url.toString());
+    if (!res.ok) {
+        throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
+    }
+
+    const data: string = await res.text();
+    return data;
+};
+
+export default async function Home() {
+    const message = await fetchMessage();
 
     return (
-        <main className='flex flex-col gap-4 min-h-screen items-center justify-center'>
-            <h1 className='text-2xl'>{message || 'Loading...'}</h1>
-            <Link href={'/levels'}>Go to /levels</Link>
+        <main className='flex flex-col gap-6 min-h-screen items-center justify-center p-4'>
+            <h1 className='text-2xl'>{message ?? 'Loading…'}</h1>
+            <Link
+                href='/levels'
+                className='mt-6 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700'
+            >
+                Go to /levels
+            </Link>
         </main>
     );
 }

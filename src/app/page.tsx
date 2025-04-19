@@ -1,7 +1,9 @@
 import Link from 'next/link';
 
+const jetsonBaseURL = process.env.JETSON_URL;
+
 const fetchMessage = async () => {
-    const url = new URL('http://jetsonnano-02.ece.iastate.edu:8080/hello');
+    const url = new URL('/hello', jetsonBaseURL);
 
     const res = await fetch(url.toString());
     if (!res.ok) {

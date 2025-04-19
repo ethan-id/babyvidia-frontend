@@ -1,4 +1,5 @@
-import {Row} from './row';
+import dynamic from 'next/dynamic';
+import {InfluxPoint} from '@/types/influx';
 
 interface Catalog {
     [building: string]: string[];
@@ -16,11 +17,6 @@ const fetchCatalog = async () => {
     return data;
 };
 
-interface InfluxPoint {
-    time: string;
-    value: number;
-}
-
 const fetchByBuildingAndRoom = async (building: string, room: string) => {
     const url = new URL('http://jetsonnano-02.ece.iastate.edu:8080/query');
 
@@ -35,6 +31,8 @@ const fetchByBuildingAndRoom = async (building: string, room: string) => {
     const data: InfluxPoint[] = await res.json();
     return data;
 };
+
+const RoomChart = dynamic(() => import('./room-chart'));
 
 export default async function LevelsPage() {
     const catalog = await fetchCatalog();
@@ -59,25 +57,22 @@ export default async function LevelsPage() {
                 >
                     <h2 className='text-2xl font-bold mb-4'>{building}</h2>
 
-                    {Object.entries(roomsMap).map(([room, points]) => (
-                        <div
-                            key={room}
-                            className='mb-6'
-                        >
-                            <h3 className='text-xl font-semibold mb-2'>Room {room}</h3>
-
-                            <div className='flex flex-col gap-2'>
-                                {points?.map((point) => (
-                                    <Row
-                                        key={point.time}
-                                        capacity={point.value}
-                                        time={point.time}
-                                    />
-                                ))}
-                                {points?.length === 0 && <p className='text-gray-500'>No data in the last 7 days</p>}
-                            </div>
-                        </div>
-                    ))}
+                    {Object.entries(roomsMap).map(([room, points]) =>
+                        points.length > 0 ? (
+                            <RoomChart
+                                key={room}
+                                room={room}
+                                data={points}
+                            />
+                        ) : (
+                            <p
+                                key={room}
+                                className='text-gray-500 mb-6'
+                            >
+                                Room {room}: No data in the last 7 days
+                            </p>
+                        )
+                    )}
                 </section>
             ))}
         </div>

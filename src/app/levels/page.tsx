@@ -6,6 +6,9 @@ interface Catalog {
 }
 
 const jetsonBaseURL = process.env.JETSON_URL;
+if (jetsonBaseURL === undefined) {
+    throw new Error('Missing env var "JETSON_URL"');
+}
 
 const fetchCatalog = async () => {
     const url = new URL('/catalog', jetsonBaseURL);

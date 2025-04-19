@@ -5,10 +5,12 @@ interface Catalog {
     [building: string]: string[];
 }
 
-const fetchCatalog = async () => {
-    const url = new URL('http://jetsonnano-02.ece.iastate.edu:8080/catalog');
+const jetsonBaseURL = process.env.JETSON_URL;
 
-    const res = await fetch(url.toString());
+const fetchCatalog = async () => {
+    const url = new URL('/catalog', jetsonBaseURL);
+
+    const res = await fetch(url);
     if (!res.ok) {
         throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
     }
@@ -18,12 +20,12 @@ const fetchCatalog = async () => {
 };
 
 const fetchByBuildingAndRoom = async (building: string, room: string) => {
-    const url = new URL('http://jetsonnano-02.ece.iastate.edu:8080/query');
+    const url = new URL('/query', jetsonBaseURL);
 
     url.searchParams.set('building', building);
     url.searchParams.set('room', room);
 
-    const res = await fetch(url.toString());
+    const res = await fetch(url);
     if (!res.ok) {
         throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
     }

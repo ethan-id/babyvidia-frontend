@@ -52,7 +52,7 @@ export default async function LevelsPage() {
     }
 
     return (
-        <div className='flex flex-col gap-6 min-h-screen mx-12 my-6'>
+        <div className='flex flex-col mx-auto gap-6 min-h-screen max-w-[80vw] my-6'>
             <h1 className='text-3xl'>/ Levels</h1>
 
             {Object.entries(dataByBuilding).map(([building, roomsMap]) => (
@@ -62,22 +62,24 @@ export default async function LevelsPage() {
                 >
                     <h2 className='text-2xl font-bold mb-4'>{building}</h2>
 
-                    {Object.entries(roomsMap).map(([room, points]) =>
-                        points.length > 0 ? (
-                            <RoomChart
-                                key={room}
-                                room={room}
-                                data={points}
-                            />
-                        ) : (
-                            <p
-                                key={room}
-                                className='text-gray-500 mb-6'
-                            >
-                                Room {room}: No data in the last 7 days
-                            </p>
-                        )
-                    )}
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+                        {Object.entries(roomsMap).map(([room, points]) =>
+                            points.length > 0 ? (
+                                <RoomChart
+                                    key={room}
+                                    room={room}
+                                    data={points}
+                                />
+                            ) : (
+                                <p
+                                    key={room}
+                                    className='text-gray-500 mb-6'
+                                >
+                                    Room {room}: No data in the last 7 days
+                                </p>
+                            )
+                        )}
+                    </div>
                 </section>
             ))}
         </div>

@@ -13,7 +13,9 @@ if (jetsonBaseURL === undefined) {
 const fetchCatalog = async () => {
     const url = new URL('/catalog', jetsonBaseURL);
 
-    const res = await fetch(url);
+    const res = await fetch(url, {
+        cache: 'no-store'
+    });
     if (!res.ok) {
         throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
     }
@@ -28,7 +30,9 @@ const fetchByBuildingAndRoom = async (building: string, room: string) => {
     url.searchParams.set('building', building);
     url.searchParams.set('room', room);
 
-    const res = await fetch(url);
+    const res = await fetch(url, {
+        cache: 'no-store'
+    });
     if (!res.ok) {
         throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
     }

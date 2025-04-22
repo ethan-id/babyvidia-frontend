@@ -13,15 +13,10 @@ export default function RoomChart({data, room}: RoomChartProps) {
     const oneDayMs = 24 * 60 * 1000;
     const cutoff = Date.now() - oneDayMs;
 
-    // memoize filter so we only recalc when `data` changes
-    const filteredData = useMemo(
-        () =>
-            data.filter((point) => {
-                const t = new Date(point.time).getTime();
-                return t >= cutoff;
-            }),
-        [data, cutoff]
-    );
+    const filteredData = useMemo(() => data.filter((point) => {
+        const t = new Date(point.time).getTime();
+        return t >= cutoff;
+    }), [data, cutoff]);
 
     return (
         <div className='w-full h-64 mb-6'>

@@ -2,6 +2,7 @@
 
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
 import {InfluxPoint} from '@/types/influx';
+import { useMemo } from 'react';
 
 interface RoomChartProps {
     data: InfluxPoint[];
@@ -9,6 +10,19 @@ interface RoomChartProps {
 }
 
 export default function RoomChart({data, room}: RoomChartProps) {
+    const oneDayMs = 24 * 60 * 1000;
+    const cutoff = Date.now() - oneDayMs;
+
+    // memoize filter so we only recalc when `data` changes
+    const filteredData = useMemo(
+        () =>
+            data.filter((point) => {
+                const t = new Date(point.time).getTime();
+                return t >= cutoff;
+            }),
+        [data, cutoff]
+    );
+
     return (
         <div className='w-full h-64 mb-6'>
             <h3 className='text-xl font-semibold mb-2'>Room {room}</h3>
@@ -16,7 +30,7 @@ export default function RoomChart({data, room}: RoomChartProps) {
                 width='100%'
                 height='100%'
             >
-                <LineChart data={data}>
+                <LineChart data={filteredData}>
                     <CartesianGrid strokeDasharray='3 3' />
                     <XAxis
                         dataKey='time'

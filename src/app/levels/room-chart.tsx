@@ -2,7 +2,7 @@
 
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer} from 'recharts';
 import {InfluxPoint} from '@/types/influx';
-import { useMemo } from 'react';
+import {useMemo} from 'react';
 
 interface RoomChartProps {
     data: InfluxPoint[];

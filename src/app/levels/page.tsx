@@ -68,7 +68,7 @@ export default async function LevelsPage() {
 
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                         {Object.entries(roomsMap).map(([room, points]) =>
-                            points.length > 0 ? (
+                            points?.length > 0 ? (
                                 <RoomChart
                                     key={room}
                                     room={room}
@@ -79,7 +79,7 @@ export default async function LevelsPage() {
                                     key={room}
                                     className='text-gray-500 mb-6'
                                 >
-                                    Room {room}: No data in the last 7 days
+                                    Room {room}: No data recently
                                 </p>
                             )
                         )}

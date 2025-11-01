@@ -22,7 +22,7 @@ export default async function Home() {
             <h1 className='text-2xl'>{message ?? 'Loading…'}</h1>
             <Link
                 href='/levels'
-                className='mt-6 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700'
+                className='mt-6 inline-block px-4 py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700'
             >
                 Go to /levels
             </Link>

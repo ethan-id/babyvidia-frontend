@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import {InfluxPoint} from '@/types/influx';
+import {BuildingCharts} from './building-charts';
 
 interface Catalog {
     [building: string]: string[];
@@ -41,8 +42,6 @@ const fetchByBuildingAndRoom = async (building: string, room: string) => {
     return data;
 };
 
-const RoomChart = dynamic(() => import('./room-chart'));
-
 export default async function LevelsPage() {
     const catalog = await fetchCatalog();
 
@@ -65,25 +64,7 @@ export default async function LevelsPage() {
                     className='mb-8'
                 >
                     <h2 className='text-2xl font-bold mb-4'>{building}</h2>
-
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-                        {Object.entries(roomsMap).map(([room, points]) =>
-                            points?.length > 0 ? (
-                                <RoomChart
-                                    key={room}
-                                    room={room}
-                                    data={points}
-                                />
-                            ) : (
-                                <p
-                                    key={room}
-                                    className='text-gray-500 mb-6'
-                                >
-                                    Room {room}: No data recently
-                                </p>
-                            )
-                        )}
-                    </div>
+                    <BuildingCharts roomsMap={roomsMap} />
                 </section>
             ))}
         </div>

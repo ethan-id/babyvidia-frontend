@@ -13,7 +13,7 @@ interface RoomDetailChartProps {
 
 type TimeRange = '1h' | '6h' | '24h' | '7d' | 'all';
 
-export default function RoomDetailChart({data, building, room}: RoomDetailChartProps) {
+export default function RoomDetailChart({data}: RoomDetailChartProps) {
     const [timeRange, setTimeRange] = useState<TimeRange>('24h');
 
     const filteredData = useMemo(() => {

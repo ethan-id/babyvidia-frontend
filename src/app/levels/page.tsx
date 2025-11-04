@@ -1,6 +1,5 @@
-import dynamic from 'next/dynamic';
 import {InfluxPoint} from '@/types/influx';
-import {BuildingCharts} from './building-charts';
+import RoomList from './room-list';
 
 interface Catalog {
     [building: string]: string[];
@@ -45,17 +44,19 @@ const fetchByBuildingAndRoom = async (building: string, room: string) => {
 export default async function LevelsPage() {
     const catalog = await fetchCatalog();
 
-    const dataByBuilding: Record<string, Record<string, InfluxPoint[]>> = {};
+    const dataByBuilding: Record<string, Record<string, InfluxPoint | null>> = {};
 
     for (const [building, rooms] of Object.entries(catalog)) {
         dataByBuilding[building] = {};
         for (const room of rooms) {
-            dataByBuilding[building][room] = await fetchByBuildingAndRoom(building, room);
+            const data = await fetchByBuildingAndRoom(building, room);
+            // Get the most recent data point
+            dataByBuilding[building][room] = data && data.length > 0 ? data[data.length - 1] : null;
         }
     }
 
     return (
-        <div className='flex flex-col mx-auto gap-6 min-h-screen max-w-[80vw] my-6'>
+        <div className='flex flex-col mx-auto gap-6 min-h-screen max-w-[80vw] py-6'>
             <h1 className='text-3xl'>/ Levels</h1>
 
             {Object.entries(dataByBuilding).map(([building, roomsMap]) => (
@@ -64,7 +65,7 @@ export default async function LevelsPage() {
                     className='mb-8'
                 >
                     <h2 className='text-2xl font-bold mb-4'>{building}</h2>
-                    <BuildingCharts roomsMap={roomsMap} />
+                    <RoomList building={building} roomsMap={roomsMap} />
                 </section>
             ))}
         </div>

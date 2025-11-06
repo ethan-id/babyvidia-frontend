@@ -31,6 +31,8 @@ const fetchByBuildingAndRoom = async (building: string, room: string) => {
     return data;
 };
 
+// TODO: Make "Current Occupancy" say "Last Known Occupancy" if data point is older than ~10 minutes or something
+// TODO: Show more data about the room, use the new statistics by day/hour endpoint
 export default async function RoomDetailPage({params}: PageProps) {
     const {building, room} = await params;
     const data = await fetchByBuildingAndRoom(building, room);

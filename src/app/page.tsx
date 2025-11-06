@@ -1,8 +1,10 @@
 import Link from 'next/link';
 
-const jetsonBaseURL = process.env.JETSON_URL;
+export const revalidate = 0;
 
-const fetchMessage = async () => {
+const jetsonBaseURL = process.env.JETSON_URL;
+ 
+const checkHealth = async () => {
     const url = new URL('/hello', jetsonBaseURL);
 
     try {
@@ -21,11 +23,11 @@ const fetchMessage = async () => {
 };
 
 export default async function Home() {
-    const message = await fetchMessage();
+    const serverUp = await checkHealth();
 
     return (
         <main className='flex flex-col gap-6 min-h-screen items-center justify-center p-4'>
-            <h1 className='text-2xl'>Server status: {message ? <span className='text-green-500'>Online</span> : <span className='text-red-500'>Offline</span>}</h1>
+            <h1 className='text-2xl'>Server status: {serverUp ? <span className='text-green-500'>Online</span> : <span className='text-red-500'>Offline</span>}</h1>
             <Link
                 href='/levels'
                 className='mt-6 inline-block px-4 py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700'

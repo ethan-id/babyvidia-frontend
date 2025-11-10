@@ -1,6 +1,7 @@
 import {InfluxPoint} from '@/types/influx';
 import RoomDetailChart from './room-detail-chart';
 import Link from 'next/link';
+import { DayStatistic, HourStatistic, Statistic } from '@/types/stat';
 
 interface PageProps {
     params: Promise<{
@@ -12,6 +13,40 @@ interface PageProps {
 const jetsonBaseURL = process.env.JETSON_URL;
 if (jetsonBaseURL === undefined) {
     throw new Error('Missing env var "JETSON_URL"');
+}
+
+const fetchDayStats = async (building: string, room: string) => {
+    const url = new URL('/statistics/day', jetsonBaseURL);
+
+    url.searchParams.set('building', building);
+    url.searchParams.set('room', room);
+
+    const res = await fetch(url, {
+        cache: 'no-store'
+    });
+    if (!res.ok) {
+        throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
+    }
+
+    const data: DayStatistic[] = await res.json();
+    return data;
+}
+
+const fetchHourStats = async (building: string, room: string) => {
+    const url = new URL('/statistics/hour', jetsonBaseURL);
+
+    url.searchParams.set('building', building);
+    url.searchParams.set('room', room);
+
+    const res = await fetch(url, {
+        cache: 'no-store'
+    });
+    if (!res.ok) {
+        throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
+    }
+
+    const data: HourStatistic[] = await res.json();
+    return data;
 }
 
 const fetchByBuildingAndRoom = async (building: string, room: string) => {
@@ -36,6 +71,10 @@ const fetchByBuildingAndRoom = async (building: string, room: string) => {
 export default async function RoomDetailPage({params}: PageProps) {
     const {building, room} = await params;
     const data = await fetchByBuildingAndRoom(building, room);
+    const hourStats = await fetchHourStats(building, room);
+    const dayStats = await fetchDayStats(building, room);
+
+    console.log(hourStats, dayStats);
 
     const latestPoint = data && data.length > 0 ? data[data.length - 1] : null;
 

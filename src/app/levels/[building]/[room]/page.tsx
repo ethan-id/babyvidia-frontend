@@ -1,7 +1,7 @@
 import {InfluxPoint} from '@/types/influx';
 import RoomDetailChart from './room-detail-chart';
 import Link from 'next/link';
-import { DayStatistic, HourStatistic, Statistic } from '@/types/stat';
+import { DayStatistic, HourStatistic } from '@/types/stat';
 
 interface PageProps {
     params: Promise<{

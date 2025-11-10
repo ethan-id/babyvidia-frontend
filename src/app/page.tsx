@@ -27,13 +27,14 @@ export default async function Home() {
 
     return (
         <main className='flex flex-col gap-6 min-h-screen items-center justify-center p-4'>
+            <h1 className='text-4xl font-bold'>Edge ML-Driven Occupancy Tracking</h1>
             <h1 className='text-2xl'>Server status: {serverUp ? <span className='text-green-500'>Online</span> : <span className='text-red-500'>Offline</span>}</h1>
-            <Link
+            {serverUp && <Link
                 href='/levels'
                 className='mt-6 inline-block px-4 py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700'
             >
                 Go to /levels
-            </Link>
+            </Link>}
         </main>
     );
 }

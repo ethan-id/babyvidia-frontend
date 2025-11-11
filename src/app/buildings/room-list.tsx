@@ -42,7 +42,7 @@ export default function RoomList({building, roomsMap}: RoomListProps) {
             {Object.entries(roomsMap).map(([room, latestPoint]) => (
                 <Link
                     key={room}
-                    href={`/levels/${encodeURIComponent(building)}/${encodeURIComponent(room)}`}
+                    href={`/buildings/${encodeURIComponent(building)}/${encodeURIComponent(room)}`}
                     className='flex flex-col p-4 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer hover:border-blue-400'
                 >
                     <div className='flex items-center justify-between mb-2'>

@@ -30,10 +30,10 @@ export default async function Home() {
             <h1 className='text-4xl font-bold'>Edge ML-Driven Occupancy Tracking</h1>
             <h1 className='text-2xl'>Server status: {serverUp ? <span className='text-green-500'>Online</span> : <span className='text-red-500'>Offline</span>}</h1>
             {serverUp && <Link
-                href='/levels'
+                href='/buildings'
                 className='mt-6 inline-block px-4 py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-700'
             >
-                Go to /levels
+                Go to /buildings
             </Link>}
         </main>
     );

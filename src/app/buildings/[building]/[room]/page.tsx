@@ -81,7 +81,7 @@ export default async function RoomDetailPage({params}: PageProps) {
     return (
         <div className='flex flex-col mx-auto gap-6 min-h-screen max-w-[80vw] py-6'>
             <div className='flex items-center gap-2 text-sm text-gray-500'>
-                <Link href='/levels' className='hover:text-blue-500'>Levels</Link>
+                <Link href='/buildings' className='hover:text-blue-500'>Buildings</Link>
                 <span>/</span>
                 <span>{building}</span>
                 <span>/</span>

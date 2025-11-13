@@ -1,5 +1,5 @@
 import {InfluxPoint} from '@/types/influx';
-import {BuildingAccordion} from './building-accordion';
+import {BuildingsContainer} from './buildings-container';
 
 interface Catalog {
     [building: string]: string[];
@@ -43,7 +43,6 @@ const fetchByBuildingAndRoom = async (building: string, room: string) => {
 
 export default async function BuildingsPage() {
     const catalog = await fetchCatalog();
-
     const dataByBuilding: Record<string, Record<string, InfluxPoint | null>> = {};
 
     for (const [building, rooms] of Object.entries(catalog)) {
@@ -58,7 +57,7 @@ export default async function BuildingsPage() {
     return (
         <div className='flex flex-col mx-auto gap-6 min-h-screen max-w-[80vw] py-6'>
             <h1 className='text-3xl'>/ Buildings</h1>
-            <BuildingAccordion dataByBuilding={dataByBuilding} />
+            <BuildingsContainer dataByBuilding={dataByBuilding} />
         </div>
     );
 }

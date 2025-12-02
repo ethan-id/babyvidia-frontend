@@ -47,10 +47,12 @@ export default async function BuildingsPage() {
 
     for (const [building, rooms] of Object.entries(catalog)) {
         dataByBuilding[building] = {};
-        for (const room of rooms) {
-            const data = await fetchByBuildingAndRoom(building, room);
-            // Get the most recent data point
-            dataByBuilding[building][room] = data && data.length > 0 ? data[data.length - 1] : null;
+        if (rooms) {
+            for (const room of rooms) {
+                const data = await fetchByBuildingAndRoom(building, room);
+                // Get the most recent data point
+                dataByBuilding[building][room] = data && data.length > 0 ? data[data.length - 1] : null;
+            }
         }
     }
 

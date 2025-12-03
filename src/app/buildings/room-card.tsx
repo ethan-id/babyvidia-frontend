@@ -25,7 +25,7 @@ const getTimeAgo = (timestamp: string, now: number) => {
     return `${days} day${days !== 1 ? 's' : ''} ago`;
 };
 
-export default function RoomList({building, roomsMap}: RoomListProps) {
+export default function RoomCard({building, roomsMap}: RoomListProps) {
     const [currentTime, setCurrentTime] = useState(Date.now());
 
     // Update the time every minute to keep "X mins ago" accurate

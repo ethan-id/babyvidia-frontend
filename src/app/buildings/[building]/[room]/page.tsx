@@ -94,7 +94,7 @@ export default async function RoomDetailPage({params}: PageProps) {
                 </h1>
                 {latestPoint && (
                     <div className='flex items-center gap-2 text-lg text-gray-600'>
-                        <span>Current Occupancy:</span>
+                        <span>Last Known Occupancy:</span>
                         <span className='font-semibold flex items-center gap-1'>
                             <CircleUser className='w-5 h-5' />
                             {Math.round(latestPoint.value)} {Math.round(latestPoint.value) === 1 ? 'person' : 'people'}

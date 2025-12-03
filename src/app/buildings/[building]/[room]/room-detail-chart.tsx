@@ -60,7 +60,7 @@ export default function RoomDetailChart({data}: RoomDetailChartProps) {
     return (
         <div className='w-full'>
             <div className='flex justify-between items-center mb-4'>
-                <h2 className='text-xl font-semibold'>Occupancy Over Time</h2>
+                <h2 className='text-xl font-semibold'>Occupancy</h2>
                 <ButtonGroup size='sm' variant='flat'>
                     <Button
                         onPress={() => setTimeRange('1h')}

@@ -4,7 +4,7 @@ import {Chip} from '@heroui/react';
 import {InfluxPoint} from '@/types/influx';
 import Link from 'next/link';
 import {useEffect, useState} from 'react';
-import {CircleUser, Clock} from 'lucide-react';
+import {CircleUser} from 'lucide-react';
 
 interface RoomListProps {
     building: string;

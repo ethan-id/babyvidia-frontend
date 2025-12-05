@@ -12,7 +12,7 @@ interface BuildingAccordionProps {
 
 export const BuildingAccordion: FC<BuildingAccordionProps> = ({dataByBuilding}) => {
     return (
-        <Accordion>
+        <Accordion selectionMode='multiple'>
             {Object.entries(dataByBuilding).map(([building, roomsMap]) => (
                 <AccordionItem
                     startContent={<School />}
